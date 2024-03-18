@@ -4,6 +4,8 @@ import com.example.demo.chat.entity.ChatMessage;
 import com.example.demo.chat.entity.ChatRoom;
 import com.example.demo.chat.service.ChatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,5 +41,18 @@ public class ChatController {
         List<ChatMessage> messages = chatService.findMessagesByRoomId(roomId);
 
         return messages;
+    }
+
+    public record CreateMessageReqBody(String writerName, String body) {
+    }
+
+    @MessageMapping("/chat/{roomId}/messages/create")
+    public void createMessage(
+            CreateMessageReqBody createMessageReqBody,
+            @DestinationVariable long roomId
+    ) {
+        ChatRoom chatRoom = chatService.findRoomById(roomId).get();
+
+        ChatMessage chatMessage = chatService.writeMessage(chatRoom, createMessageReqBody.writerName(), createMessageReqBody.body());
     }
 }
