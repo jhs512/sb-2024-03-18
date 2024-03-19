@@ -6,6 +6,7 @@ import com.example.demo.domain.chat.chat.entity.ChatRoom;
 import com.example.demo.domain.chat.chat.service.ChatService;
 import com.example.demo.domain.member.member.entity.Member;
 import com.example.demo.domain.member.member.service.MemberService;
+import com.example.demo.global.rq.Rq;
 import com.example.demo.global.stomp.StompMessageTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -29,6 +30,7 @@ public class ChatController {
     private final ChatService chatService;
     private final StompMessageTemplate template;
     private final MemberService memberService;
+    private final Rq rq;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/{roomId}")
@@ -36,6 +38,9 @@ public class ChatController {
             @PathVariable long roomId,
             Model model
     ) {
+        Member member = rq.getMember(); // TODO : 임시코드
+        System.out.println("member = " + member); // TODO : 임시코드
+
         ChatRoom chatRoom = chatService.findRoomById(roomId).get();
         model.addAttribute("chatRoom", chatRoom);
 
@@ -65,7 +70,10 @@ public class ChatController {
             CreateMessageReqBody createMessageReqBody,
             @DestinationVariable long roomId
     ) {
-        Member member = memberService.findByUsername("user1").get();// TODO : 임시코드
+        Member member = rq.getMember(); // TODO : 임시코드
+        System.out.println("member = " + member); // TODO : 임시코드
+
+        member = memberService.findByUsername("user1").get();// TODO : 임시코드
         ChatRoom chatRoom = chatService.findRoomById(roomId).get();
 
         ChatMessage chatMessage = chatService.writeMessage(chatRoom, member, createMessageReqBody.body());
