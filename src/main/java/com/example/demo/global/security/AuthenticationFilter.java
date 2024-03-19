@@ -22,10 +22,10 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (!request.getRequestURI().startsWith("/api/")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
+//        if (!request.getRequestURI().startsWith("/api/")) {
+//            filterChain.doFilter(request, response);
+//            return;
+//        }
 
         if (List.of("/api/v1/members/login", "/api/v1/members/join", "/api/v1/members/logout").contains(request.getRequestURI())) {
             filterChain.doFilter(request, response);

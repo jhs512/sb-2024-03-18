@@ -1,4 +1,4 @@
-package com.example.demo.domain.chat.dto;
+package com.example.demo.domain.chat.chat.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

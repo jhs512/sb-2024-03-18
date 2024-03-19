@@ -27,10 +27,10 @@ public class GlobalExceptionHandler {
     private final Rq rq;
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(Exception ex) {
+    public ResponseEntity<Object> handleException(Exception ex) throws Exception {
         // 어짜피 이 서버(스프링부트)를 API서버로만 이용할 것이므로 이 코드는 필요 없다.
         // 그리고 isApi 의 로직은 조금 더 보강을 해야 한다.
-        // if (!rq.isApi()) throw ex;
+        if (!rq.isApi()) throw ex;
 
         return handleApiException(ex);
     }

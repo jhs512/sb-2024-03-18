@@ -1,15 +1,13 @@
 package com.example.demo.global.initData;
 
-import com.example.demo.domain.chat.entity.ChatRoom;
-import com.example.demo.domain.chat.service.ChatService;
+import com.example.demo.domain.chat.chat.entity.ChatRoom;
+import com.example.demo.domain.chat.chat.service.ChatService;
 import com.example.demo.domain.member.member.entity.Member;
 import com.example.demo.domain.member.member.service.MemberService;
 import com.example.demo.global.app.AppConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,16 +51,16 @@ public class All {
         memberGarage.setRefreshToken("garage");
 
         Member memberUser1 = memberService.join("user1", "1234").getData();
-        memberGarage.setRefreshToken("user1");
+        memberUser1.setRefreshToken("user1");
 
         Member memberUser2 = memberService.join("user2", "1234").getData();
-        memberGarage.setRefreshToken("user2");
+        memberUser2.setRefreshToken("user2");
 
         Member memberUser3 = memberService.join("user3", "1234").getData();
-        memberGarage.setRefreshToken("user3");
+        memberUser3.setRefreshToken("user3");
 
         Member memberUser4 = memberService.join("user4", "1234").getData();
-        memberGarage.setRefreshToken("user4");
+        memberUser4.setRefreshToken("user4");
 
         ChatRoom room1 = chatService.createRoom(memberUser1, "room1");
         ChatRoom room2 = chatService.createRoom(memberUser2, "room2");

@@ -2,7 +2,6 @@ package com.example.demo.domain.member.member.service;
 
 import com.example.demo.domain.member.member.entity.Member;
 import com.example.demo.domain.member.member.repository.MemberRepository;
-
 import com.example.demo.global.exceptions.GlobalException;
 import com.example.demo.global.rsData.RsData;
 import com.example.demo.global.security.SecurityUser;

@@ -1,9 +1,9 @@
-package com.example.demo.domain.chat.service;
+package com.example.demo.domain.chat.chat.service;
 
-import com.example.demo.domain.chat.entity.ChatMessage;
-import com.example.demo.domain.chat.entity.ChatRoom;
-import com.example.demo.domain.chat.repository.ChatMessageRepository;
-import com.example.demo.domain.chat.repository.ChatRoomRepository;
+import com.example.demo.domain.chat.chat.entity.ChatMessage;
+import com.example.demo.domain.chat.chat.entity.ChatRoom;
+import com.example.demo.domain.chat.chat.repository.ChatMessageRepository;
+import com.example.demo.domain.chat.chat.repository.ChatRoomRepository;
 import com.example.demo.domain.member.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

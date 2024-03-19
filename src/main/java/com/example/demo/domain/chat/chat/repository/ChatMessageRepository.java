@@ -1,7 +1,7 @@
-package com.example.demo.domain.chat.repository;
+package com.example.demo.domain.chat.chat.repository;
 
 
-import com.example.demo.domain.chat.entity.ChatMessage;
+import com.example.demo.domain.chat.chat.entity.ChatMessage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,16 +1,16 @@
-package com.example.demo.domain.chat.controller;
+package com.example.demo.domain.chat.chat.controller;
 
-import com.example.demo.domain.chat.dto.ChatMessageDto;
-import com.example.demo.domain.chat.entity.ChatMessage;
-import com.example.demo.domain.chat.entity.ChatRoom;
-import com.example.demo.domain.chat.service.ChatService;
+import com.example.demo.domain.chat.chat.dto.ChatMessageDto;
+import com.example.demo.domain.chat.chat.entity.ChatMessage;
+import com.example.demo.domain.chat.chat.entity.ChatRoom;
+import com.example.demo.domain.chat.chat.service.ChatService;
 import com.example.demo.domain.member.member.entity.Member;
-import com.example.demo.domain.member.member.repository.MemberRepository;
 import com.example.demo.domain.member.member.service.MemberService;
 import com.example.demo.global.stomp.StompMessageTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -30,6 +30,7 @@ public class ChatController {
     private final StompMessageTemplate template;
     private final MemberService memberService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{roomId}")
     public String showRoom(
             @PathVariable long roomId,
