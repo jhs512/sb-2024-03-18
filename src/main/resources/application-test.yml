@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:db_test;MODE=MySQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+custom:
+  temp:
+    dirPath: c:/temp/sb_2024_03_18_test/temp
+  genFile:
+    dirPath: c:/temp/sb_2024_03_18_test
