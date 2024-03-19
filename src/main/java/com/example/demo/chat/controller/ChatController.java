@@ -3,11 +3,10 @@ package com.example.demo.chat.controller;
 import com.example.demo.chat.entity.ChatMessage;
 import com.example.demo.chat.entity.ChatRoom;
 import com.example.demo.chat.service.ChatService;
+import com.example.demo.global.stomp.StompMessageTemplate;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ChatController {
     private final ChatService chatService;
-    private final RabbitTemplate template;
+    private final StompMessageTemplate template;
 
     @GetMapping("/{roomId}")
     public String showRoom(
@@ -58,6 +57,6 @@ public class ChatController {
 
         ChatMessage chatMessage = chatService.writeMessage(chatRoom, createMessageReqBody.writerName(), createMessageReqBody.body());
 
-        template.convertAndSend("amq.topic", "chat" + roomId + "MessageCreated", chatMessage);
+        template.convertAndSend("topic", "chat" + roomId + "MessageCreated", chatMessage);
     }
 }

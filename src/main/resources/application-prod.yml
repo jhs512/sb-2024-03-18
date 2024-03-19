@@ -1,0 +1,7 @@
+spring:
+  rabbitmq:
+    host: ${custom.prod.rabbitmq.host}
+    port: ${custom.prod.rabbitmq.port}
+    stompPort: ${custom.prod.rabbitmq.stompPort} # Custom property
+    username: ${custom.prod.rabbitmq.username}
+    password: ${custom.prod.rabbitmq.password}

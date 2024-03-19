@@ -2,16 +2,31 @@ package com.example.demo.global.stomp;
 
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+@Profile("prod")
 @Configuration
 @EnableWebSocketMessageBroker
-public class StompRabbitMqBrokerConfig implements WebSocketMessageBrokerConfigurer {
+public class StompRabbitMQBrokerConfig implements WebSocketMessageBrokerConfigurer {
+    @Value("${spring.rabbitmq.host}")
+    private String rabbitmqHost;
+
+    @Value("${spring.rabbitmq.stompPort}")
+    private int rabbitmqStompPort;
+
+    @Value("${spring.rabbitmq.username}")
+    private String rabbitmqUsername;
+
+    @Value("${spring.rabbitmq.password}")
+    private String rabbitmqPassword;
+
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -23,12 +38,12 @@ public class StompRabbitMqBrokerConfig implements WebSocketMessageBrokerConfigur
         registry
                 .setApplicationDestinationPrefixes("/app")
                 .enableStompBrokerRelay("/topic")
-                .setRelayHost("localhost")
-                .setRelayPort(61613)
-                .setClientLogin("admin")
-                .setClientPasscode("admin")
-                .setSystemLogin("admin")
-                .setSystemPasscode("admin");
+                .setRelayHost(rabbitmqHost)
+                .setRelayPort(rabbitmqStompPort)
+                .setClientLogin(rabbitmqUsername)
+                .setClientPasscode(rabbitmqPassword)
+                .setSystemLogin(rabbitmqUsername)
+                .setSystemPasscode(rabbitmqPassword);
     }
 
     @Bean

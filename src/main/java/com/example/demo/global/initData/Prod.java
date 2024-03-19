@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 
-@Profile("!prod")
+@Profile("prod")
 @Configuration
 @RequiredArgsConstructor
-public class NotProd {
+public class Prod {
     @Autowired
     @Lazy
-    private NotProd self;
+    private Prod self;
     private final ChatService chatService;
 
     @Bean
