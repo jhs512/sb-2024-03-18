@@ -14,7 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Component
 @RequestScope
@@ -182,8 +184,8 @@ public class Rq {
         return url.startsWith(AppConfig.getSiteFrontUrl());
     }
 
-    public void destroySession() {
-        req.getSession().invalidate();
+    public void destroySecurityContextSession() {
+        req.getSession().removeAttribute("SPRING_SECURITY_CONTEXT");
     }
 
     public Map<String, Object> getSessionAttrs() {
