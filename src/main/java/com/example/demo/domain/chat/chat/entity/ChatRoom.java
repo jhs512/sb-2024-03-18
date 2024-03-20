@@ -19,6 +19,5 @@ public class ChatRoom extends BaseTime {
     @ManyToOne
     private Member owner;
     private String name;
-    @Column(columnDefinition = "BOOLEAN default true")
     private boolean published;
 }

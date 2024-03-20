@@ -5,7 +5,6 @@ import com.example.demo.domain.chat.chat.entity.ChatRoom;
 import com.example.demo.domain.chat.chat.repository.ChatMessageRepository;
 import com.example.demo.domain.chat.chat.repository.ChatRoomRepository;
 import com.example.demo.domain.member.member.entity.Member;
-import com.example.demo.standard.base.KwTypeV1;
 import com.example.demo.standard.base.KwTypeV2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -33,6 +32,7 @@ public class ChatService {
                 .builder()
                 .owner(owner)
                 .name(name)
+                .published(true)
                 .build();
 
         return chatRoomRepository.save(chatRoom);

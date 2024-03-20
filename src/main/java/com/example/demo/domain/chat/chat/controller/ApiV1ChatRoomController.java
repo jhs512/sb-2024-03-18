@@ -13,12 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +45,22 @@ public class ApiV1ChatRoomController {
         return RsData.of(
                 new GetChatRoomsResponseBody(
                         new PageDto<>(_itemPage)
+                )
+        );
+    }
+
+    public record GetChatRoomResponseBody(@NonNull ChatRoomDto item) {
+    }
+
+    @GetMapping("/{id}")
+    public RsData<GetChatRoomResponseBody> getChatRoom(
+            @PathVariable long id
+    ) {
+        ChatRoom chatRoom = chatService.findRoomById(id).get();
+
+        return RsData.of(
+                new GetChatRoomResponseBody(
+                        new ChatRoomDto(chatRoom)
                 )
         );
     }
