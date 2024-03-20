@@ -5,7 +5,11 @@ import com.example.demo.domain.chat.chat.entity.ChatRoom;
 import com.example.demo.domain.chat.chat.repository.ChatMessageRepository;
 import com.example.demo.domain.chat.chat.repository.ChatRoomRepository;
 import com.example.demo.domain.member.member.entity.Member;
+import com.example.demo.standard.base.KwTypeV1;
+import com.example.demo.standard.base.KwTypeV2;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,5 +56,9 @@ public class ChatService {
 
     public int count() {
         return (int) chatRoomRepository.count();
+    }
+
+    public Page<ChatRoom> findRoomByKw(KwTypeV2 kwType, String kw, Member owner, Boolean published, Pageable pageable) {
+        return chatRoomRepository.findByKw(kwType, kw, owner, published, pageable);
     }
 }
