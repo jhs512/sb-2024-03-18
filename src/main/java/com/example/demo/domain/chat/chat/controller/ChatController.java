@@ -7,11 +7,13 @@ import com.example.demo.domain.chat.chat.service.ChatService;
 import com.example.demo.domain.member.member.entity.Member;
 import com.example.demo.domain.member.member.service.MemberService;
 import com.example.demo.global.rq.Rq;
+import com.example.demo.global.security.SecurityUser;
 import com.example.demo.global.stomp.StompMessageTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -38,9 +40,6 @@ public class ChatController {
             @PathVariable long roomId,
             Model model
     ) {
-        Member member = rq.getMember(); // TODO : 임시코드
-        System.out.println("member = " + member); // TODO : 임시코드
-
         ChatRoom chatRoom = chatService.findRoomById(roomId).get();
         model.addAttribute("chatRoom", chatRoom);
 
@@ -68,12 +67,12 @@ public class ChatController {
     @Transactional
     public void createMessage(
             CreateMessageReqBody createMessageReqBody,
-            @DestinationVariable long roomId
+            @DestinationVariable long roomId,
+            Authentication authentication // 웹 소켓에서는 이런식으로 로그인한 유저정보를 얻을 수 있다.
     ) {
-        Member member = rq.getMember(); // TODO : 임시코드
-        System.out.println("member = " + member); // TODO : 임시코드
+        SecurityUser securityUser = (SecurityUser) authentication.getPrincipal();
 
-        member = memberService.findByUsername("user1").get();// TODO : 임시코드
+        Member member = memberService.getReferenceById(securityUser.getId());
         ChatRoom chatRoom = chatService.findRoomById(roomId).get();
 
         ChatMessage chatMessage = chatService.writeMessage(chatRoom, member, createMessageReqBody.body());
