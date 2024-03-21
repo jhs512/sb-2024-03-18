@@ -1,5 +1,6 @@
 package com.example.demo.global.stomp;
 
+import com.example.demo.global.app.AppConfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -14,7 +15,9 @@ public class StompSimpleBrokerConfig implements WebSocketMessageBrokerConfigurer
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").withSockJS();
+        registry.addEndpoint("/ws")
+                .setAllowedOrigins("https://cdpn.io", AppConfig.getSiteFrontUrl())
+                .withSockJS();
     }
 
     @Override
