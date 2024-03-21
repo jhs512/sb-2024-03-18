@@ -12,12 +12,14 @@ import static lombok.AccessLevel.PROTECTED;
 public class ChatMessageDto {
     private long id;
     private long chatRoomId;
+    private long writerId;
     private String writerName;
     private String body;
 
     public ChatMessageDto(ChatMessage message) {
         this.id = message.getId();
         this.chatRoomId = message.getChatRoom().getId();
+        this.writerId = message.getWriter().getId();
         this.writerName = message.getWriter().getName();
         this.body = message.getBody();
     }
